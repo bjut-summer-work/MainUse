@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册</title>
+   <style>
+       * {
+           margin: 0;
+           padding: 0;
+       }
+       #sub-1{
+           background-color: white;
+           padding-top:15px;
+           padding-bottom: 15px;
+           text-align: center;
+           padding-right: 70px;
+           padding-left: 70px;
+           border-radius: 3px;
+           text-decoration: none;
+           border: 1px solid #cccccc;
+       }
+       #sub-1:hover{
+           background-color: #eeeeee;
+       }
+   </style>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 可选的Bootstrap主题文件（一般不使用） -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: whitesmoke; ">
+	<div style="background-color: #0d8ddb; height:70px; width:100%;">
+    	<span style="width:400px ;color: white; line-height: 70px; margin-left: 30px;"><font size="+2">能力文档规范系统</font></span>
+        <span style=" width: 100px; line-height: 70px; height: 70px; float: right;"><a href="login.html" style="text-decoration: none;"><font color="white" size="+1">去登录</font></a></span>
+    </div>
+	<div style="position:relative;top:50px;width:600px; margin:auto; overflow:hidden; background-color: white; border: 2px solid #0d8ddb; padding-bottom: 20px">
+        <h3 style="text-align:center"><font color="black">注册</font></h3>
+        <br/>
+        <div  style="width:400px; margin:auto; overflow:hidden; text-align:center;">
+            <form class="bs-example bs-example-form" role="form" action="" method="post">
+                <div class="input-group">
+                    <span class="input-group-addon" style="width: 80px; text-align: center;">姓名</span>
+                    <input type="text" class="form-control" placeholder="请输入用户名" name="name" style="width: 300px;">
+                    <span style="color: red; "><font size="+2">*</font></span>
+                </div>
+                <br /> 
+                <div class="input-group">
+                    <span class="input-group-addon" style="width: 80px; text-align: center;">性别&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" placeholder="请输入密码" name="password"  style="width: 300px;">
+                    <span style="color: red; "><font size="+2">*</font></span>
+                </div>
+                <input type="hidden" name="submit" value="100" />
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon" style="width: 80px; text-align: center;">出生日期</span>
+                    <input type="text" class="form-control" placeholder="请输入年龄" name="age"  style="width: 300px;">
+                    <span style="color: red; "><font size="+2">*</font></span>
+                </div>
+                <br /> 
+                <div class="input-group">
+                    <span class="input-group-addon" style="width: 80px; text-align: center;">家庭住址</span>
+                    <input type="text" class="form-control" placeholder="请输入电话" name="tele" style="width: 300px;">
+                    <span style="color: red; "><font size="+2">*</font></span>
+                </div>
+                <br /> 
+                <div class="input-group">
+                    <span class="input-group-addon" style="width: 80px; text-align: center;">联系方式</span>
+                    <input type="text" class="form-control" placeholder="请输入邮箱" name="email" style="width: 300px;">
+                    <span style="color: red; "><font size="+2">*</font></span>
+                </div>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon" style="width: 80px; text-align: center;">推荐人&nbsp;</span>
+                    <input type="text" class="form-control" placeholder="请输入邮箱" name="email" style="width: 300px;">
+                    <span style="color: red; "><font size="+2">*</font></span>
+                </div>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon" style="width: 80px; text-align: center;">行业分会</span>
+                    <select class="form-control" style="width: 300px;">
+                        <option>北京工业大学1</option>
+                        <option>北京工业大学2</option>
+                        <option>北京工业大学3</option>
+                        <option>北京工业大学4</option>
+                        <option>北京工业大学5</option>
+                    </select>
+                    <span style="color: red; "><font size="+2">*</font></span>
+                </div>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon" style="width: 80px; text-align: center;">专委会&nbsp;</span>
+                    <select class="form-control" style="width: 300px;">
+                        <option>北京工业大学1</option>
+                        <option>北京工业大学2</option>
+                        <option>北京工业大学3</option>
+                        <option>北京工业大学4</option>
+                        <option>北京工业大学5</option>
+                    </select>
+                    <span style="color: red; "><font size="+2">*</font></span>
+                </div>
+                <br />
+                <input id="sub-1" type='button' value='提交' onclick="location.href = 'https://www.baidu.com'"/>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
