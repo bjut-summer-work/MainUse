@@ -1,7 +1,8 @@
 package com.summerproj.demo.Controller;
 
-import com.summerproj.demo.User;
-import com.summerproj.demo.UserRepository;
+import com.summerproj.demo.Entity.User;
+import com.summerproj.demo.Repository.UserRepository;
+import com.summerproj.demo.Now;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +22,6 @@ public class SignController {
 
     private String jumpMessage="返回主页";
     private String jumpUrl="/home";
-
-    //查询所有用户的列表
-    @GetMapping(value = "/user")
-    public List<User> userList(){
-        return userRepository.findAll();
-    }
 
     /**
      * jump页面
@@ -115,13 +110,13 @@ public class SignController {
             User user = userList.get();
             if(user.getPassword().equals(i_password)) {
                 jumpMessage = "登陆成功！将跳转个人主页";
-                jumpUrl = "/user/"+user.getId().toString();
+                jumpUrl = "/user/";
 
                 user.setLogin(true);
                 userRepository.save(user);
 
-                UserController uc = new UserController();
-                uc.nowUser=user;
+                Now.setUser(user);
+
 
                 return "redirect:/jump";
             }else{

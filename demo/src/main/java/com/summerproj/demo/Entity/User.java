@@ -1,4 +1,4 @@
-package com.summerproj.demo;
+package com.summerproj.demo.Entity;
 
 import lombok.Data;
 import javax.persistence.Entity;

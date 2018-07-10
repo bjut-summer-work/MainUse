@@ -1,31 +1,27 @@
 package com.summerproj.demo.Aspect;
 
-import com.summerproj.demo.Controller.UserController;
+import com.summerproj.demo.Now;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
 public class LoginAspect {
-    @Pointcut("execution(public * com.summerproj.demo.Controller.UserController.userHomeP(..))")
-    public void login(){
-        System.out.println("\n\n进入个人界面，必须是已登陆!\n\n");
-    }
 
-    @Before("login()")
+
+
+    @Before("execution(public * com.summerproj.demo.Controller.UserController.userHomeP(..))")
     public void doBefore(){
-        UserController uc = new UserController();
-        if (uc.getNowUserLogin()){
-            return;//
-        }
+        if(Now.getUser()!=null && Now.getUser().getLogin()==true)
+            System.out.println("\n\n\n\n\t>>>> "+Now.getUser().getUsername()+" 合法访问主页\n\n\n\n");
+        else
+            System.out.println("\n\n\n\n\t>>>> 非法访问主页\n\n\n\n");
     }
 
-    @After("login()")
+    @After("execution(public * com.summerproj.demo.Controller.UserController.userLogOut(..))")
     public void doAfter(){
-        UserController uc = new UserController();
-        //注销状态
+        System.out.println("\n\n\n\n\t>>>> 注销完毕\n\n\n\n");
     }
 }

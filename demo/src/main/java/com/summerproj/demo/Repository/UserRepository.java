@@ -1,5 +1,6 @@
-package com.summerproj.demo;
+package com.summerproj.demo.Repository;
 
+import com.summerproj.demo.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
