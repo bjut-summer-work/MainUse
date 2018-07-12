@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface PassageRepository extends JpaRepository<Passage,Integer>{
     Optional<Passage> findByTitleContains(String title);
+    Optional<Passage> findByTitleIsNotNull();
     Optional<Passage> findByAuthor(String Author);
 }
