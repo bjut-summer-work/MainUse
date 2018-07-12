@@ -23,6 +23,18 @@
     <div  style="width: 100%; height: auto; margin-top: 20px; line-height: 1.5">
         <div style="text-align:center;width: 80%; height: auto; margin: auto; overflow: hidden;">
             <h2>用户查询</h2>
+           	<div style="width: 50%; height: auto; margin: auto; overflow: hidden; margin-top: 20px; text-align: left;">
+				<form class="bs-example bs-example-form" role="form" action="" method="post">
+                    <label style="margin-left: auto;">用户名称：</label>
+                    <input style="width: 100%" type="text" name="title" id="title" placeholder="请填写名称"> 
+                    <span style="width: 80px; text-align: left;">查询方式</span>
+                    	<select class="form-control" style="width: 300px; margin-left:30px" name="style" id="style">
+                            <option>姓名</option>
+                            <option selected = "selected">用户名</option>
+                        </select>
+                  <input type="submit" value="查询" style="height: 30px; margin-left:30px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px;" onclick="location.href = ''"/>
+              </form>
+			</div>
             <br>
             <table style="margin:auto; text-align:center; border: 3px solid black; width: 100%; height: auto;" border="+1" cellspacing="0">
                 <form action="" method="" role="form">

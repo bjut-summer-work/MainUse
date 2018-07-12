@@ -48,6 +48,7 @@ public class UserController {
 
         model.addAttribute("nowUsername",Now.getUser().getUsername());
         model.addAttribute("nowCase",Now.getUser().getRole());
+        model.addAttribute("nowUserid",Now.getUser().getId());
 
         if(Now.getUser().getRole()>=2) {
             model.addAttribute("nowUserrole","管理员");
@@ -77,7 +78,7 @@ public class UserController {
     }
     @Transactional
     @PostMapping(value = "/write")
-    public String passageAdd1(@RequestParam("title") String i_title,
+    public String passageAdd(@RequestParam("title") String i_title,
                               @RequestParam("article") String i_article,
                               @RequestParam("type") Integer i_type) {
         Passage passage = new Passage();
@@ -106,6 +107,7 @@ public class UserController {
         Now.getUser().setLogin(false);//注销状态
         userRepository.save(Now.getUser());
         Now.setUser(null);
+
         return "redirect:/";
     }
 
