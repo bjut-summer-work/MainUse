@@ -1,0 +1,251 @@
+package com.summerproj.demo.Controller;
+
+import com.summerproj.demo.Entity.Passage;
+import com.summerproj.demo.Entity.User;
+import com.summerproj.demo.Now;
+import com.summerproj.demo.Repository.PassageRepository;
+import com.summerproj.demo.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors.*;
+import java.util.Optional;
+
+@Controller
+@RequestMapping(value="/data")
+public class DataController {
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PassageRepository passageRepository;
+
+    private void preWork(Model model) {
+        model.addAttribute("nowUsername", Now.getUser().getUsername());
+        model.addAttribute("nowCase", Now.getUser().getRole());
+
+        if (Now.getUser().getRole() >= 2)
+            model.addAttribute("nowUserrole", "管理员");
+        else if (Now.getUser().getRole() == 1)
+            model.addAttribute("nowUserrole", "会员");
+        else
+            model.addAttribute("nowUserrole", "游客");
+    }
+
+    /**
+     * 搜用户
+     */
+    @GetMapping(value = "/search/user")
+    public String searchUserP(Model model){
+        if (Now.getUser() == null)
+
+            return "redirect:/";
+        //preWork(model);
+
+        model.addAttribute("result",userRepository.findAll());
+        return "search_user";
+    }
+    @GetMapping(value = "/search/passage/title/{na}")
+    public String searchUserPT(@PathVariable("na") String i_username, Model model){
+        if (Now.getUser() == null)
+            return "redirect:/";
+        preWork(model);
+
+        Optional<User> userFind;
+        userFind = userRepository.findByUsernameContains(i_username);
+        model.addAttribute("result",userFind);
+
+        return "index";
+    }
+    @PostMapping(value = "/search/user")
+    public String searchUser(){
+        return "search_user";
+    }
+
+    /**
+     * 搜文章
+     */
+    @GetMapping(value = "/search/passage")
+    public String searchPassageP( Model model){
+        if (Now.getUser() == null)
+            return "redirect:/";
+        preWork(model);
+
+        model.addAttribute("result",passageRepository.findAll());
+
+        return "search_passage";
+    }
+    @GetMapping(value = "/search/passage/title/{na}")
+    public String searchPassagePT(@PathVariable("na") String i_title, Model model){
+        if (Now.getUser() == null)
+            return "redirect:/";
+        preWork(model);
+
+        Optional<Passage> passageFind;
+        passageFind = passageRepository.findByTitleContains(i_title);
+        model.addAttribute("result",passageFind);
+
+        return "index";
+    }
+    @PostMapping(value = "/search/passage")
+    public String searchPassage(){
+        return "search_passage";
+    }
+
+
+    /**
+     * 显示用户
+     */
+    @GetMapping(value = "/user/{id}")
+    public String infoUserP(Model model, @PathVariable("id") Integer userId){
+        if(Now.getUser()==null)
+            return "redirect:/";
+        preWork(model);
+
+        Optional<User> tempList = userRepository.findById(userId);
+        User targetUser;
+        if(tempList.isPresent())
+            targetUser = tempList.get();
+        else
+            return "redirect:/data/search/user";
+        model.addAttribute("target",targetUser);
+
+        return "info_user";
+    }
+    /**
+     * 编辑用户
+     */
+    @GetMapping(value = "/user/{id}/edit")
+    public String editUserP(Model model, @PathVariable("id") Integer userId){
+        if(Now.getUser()==null)
+            return "redirect:/";
+        preWork(model);
+
+        Optional<User> tempList = userRepository.findById(userId);
+        User targetUser;
+        if(tempList.isPresent())
+            targetUser = tempList.get();
+        else
+            return "redirect:/data/search/user";
+        model.addAttribute("target",targetUser);
+
+        return "edit_user";
+    }
+    @Transactional
+    @PostMapping(value = "/user/{id}/edit")
+    public String editUser(@PathVariable("id") Integer userId,
+                           @RequestParam("name") String i_name,
+                           @RequestParam("gender") String i_gender,
+                           @RequestParam("password") String i_password,
+                           @RequestParam("username") String i_username,
+                           @RequestParam("tel") String i_tel,
+                           @RequestParam("address") String i_address,
+                           @RequestParam("friend") String i_friend,
+                           @RequestParam("company") String i_company){
+        Optional <User> list = userRepository.findById(userId);
+        User user = list.get();
+
+        System.out.println("\n\n\n\n\t>>>> 更新数据\n\n\n\n");
+        System.out.println("\n\n\n\n\t>>>> "+i_gender+"\n\n\n\n");
+
+        user.setName(i_name);
+        user.setGender(i_gender);
+
+        if(i_username.isEmpty()){
+            return "redirect:/data/user/"+userId.toString()+"/edit";
+        }user.setUsername(i_username);
+
+
+        if(i_password.isEmpty()){
+            return "redirect:/data/user/"+userId.toString()+"/edit";
+        }user.setPassword(i_password);
+
+        user.setAddress(i_address);
+
+        user.setTel(i_tel);
+        user.setFriend(i_friend);
+        user.setCompany(i_company);
+
+        userRepository.save(user);
+
+        return "redirect:/data/user/"+userId.toString();
+    }
+
+    /**
+     * 显示文章
+     */
+    @GetMapping(value = "/passage/{id}")
+    public String infoPassageP(Model model, @PathVariable("id") Integer passageId){
+        if(Now.getUser()==null)
+            return "redirect:/";
+        preWork(model);
+
+        Optional<Passage> tempList = passageRepository.findById(passageId);
+        Passage targetPassage;
+        if(tempList.isPresent())
+            targetPassage = tempList.get();
+        else
+            return "redirect:/data/search/passage";
+        model.addAttribute("target",targetPassage);
+
+        return "info_passage";
+    }
+    @PostMapping(value = "/passage/{id}")
+    public String infoPassage(@PathVariable("id") Integer passageId){
+        return "info_passage";
+    }
+
+    /**
+     * 编辑文章
+     */
+    @GetMapping(value = "/passage/{id}/edit")
+    public String editPassageP(Model model, @PathVariable("id") Integer passageId){
+        if(Now.getUser()==null)
+            return "redirect:/";
+        preWork(model);
+
+        Optional<Passage> tempList = passageRepository.findById(passageId);
+        Passage targetPassage;
+        if(tempList.isPresent())
+            targetPassage = tempList.get();
+        else
+            return "redirect:/data/search/passage";
+        model.addAttribute("target",targetPassage);
+
+        return "edit_passage";
+    }
+
+    @Transactional
+    @PostMapping(value = "/passage/{id}/edit")
+    public String editPassage(@PathVariable("id") Integer passageId,
+                           @RequestParam("title") String i_title,
+                           @RequestParam("author") String i_author,
+                           @RequestParam("article") String i_article){
+        Optional <Passage> list = passageRepository.findById(passageId);
+        Passage passage = list.get();
+
+        passage.setAuthor(i_author);
+
+        if(i_article.isEmpty()){
+            return "redirect:/data/passage/"+passageId.toString()+"/edit";
+        }passage.setArticle(i_article);
+
+        if(i_title.isEmpty()){
+            return "redirect:/data/passage/"+passageId.toString()+"/edit";
+        }passage.setTitle(i_title);
+
+        passageRepository.save(passage);
+
+        return "redirect:/data/passage/"+passageId.toString();
+    }
+
+    //@GetMapping(value = "/user/{id}/manage")
+   // public String manageUser ()
+}

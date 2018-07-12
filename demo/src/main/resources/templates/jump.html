@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- 使用 thymeleaf 传递数据给静态页面-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>跳转界面</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        body {
+            background-position: center center;
+            background-size: cover;
+            background-repeat:no-repeat ;
+            background-attachment: fixed;
+        }
+    </style>
+    <meta http-equiv="refresh" th:content="|1; url=${jumpUrl}|">
+</head>
+<body style="background-color: whitesmoke;">
+<div style="background-color: #0d8ddb; height:70px; width:100%; margin-bottom: 30px;">
+    <span style="width:400px ;color: white; line-height: 70px; margin-left: 30px;"><font size="+2">能力文档规范系统</font></span>
+    <span style="float: right; line-height: 70px; margin-right: 30px;"><font color="white">跳转提示</font></span>
+</div>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<div style="text-align: left">
+    <span class="text-area" style="width:100% ;color: darkslategray; line-height: 20px; margin-left: 20%;" th:text="${jumpMessage}">Message Details</span>
+    <br>
+    <span style="width:100% ;color: gray; line-height: 40px; margin-left: 20%;">此页面将在1秒后跳转，没有相应可点击手动跳转按钮...</span>
+</div>
+<br>
+<div style="text-align: center;">
+    <input type="button" value="手动跳转" style="height: 60px; background-color: lightgrey; border:1px solid darkcyan; color: darkslategray; border-radius: 3px; width: 200px;  margin-right: 30px; font-size: 25px;" th:onclick="|location.href = '${jumpUrl}'|" />
+</div>
+</body>
+</html>
