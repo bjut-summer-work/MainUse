@@ -43,23 +43,10 @@ public class UserController {
      */
     @GetMapping(value = {"/index"})
     public String userHomeP(Model model){
-        if(Now.getUser()==null)
-            return "redirect:/";
+        Now.prework(model);
 
-        model.addAttribute("nowUsername",Now.getUser().getUsername());
-        model.addAttribute("nowCase",Now.getUser().getRole());
-        model.addAttribute("nowUserid",Now.getUser().getId());
 
-        if(Now.getUser().getRole()>=2) {
-            model.addAttribute("nowUserrole","管理员");
-            return "user_home"; //admin
-        }else if(Now.getUser().getRole()==1) {
-            model.addAttribute("nowUserrole","会员");
-            return "user_home"; //member
-        }else {
-            model.addAttribute("nowUserrole","游客");
-            return "user_home"; //guest
-        }
+        return "user_home";
     }
 
 
@@ -68,8 +55,7 @@ public class UserController {
      */
     @GetMapping(value = "/write")
     public String passageAddP1(Model model){
-        if(Now.getUser()==null)
-            return "redirect:/";
+        Now.prework(model);
 
         model.addAttribute("nowUsername",Now.getUser().getUsername());
         model.addAttribute("nowCase",Now.getUser().getRole());
@@ -101,11 +87,10 @@ public class UserController {
      */
     @GetMapping(value = "/logout")
     public String userLogOut(){
-        if(Now.getUser()==null)
-            return "redirect:/";
-
-        Now.getUser().setLogin(false);//注销状态
-        userRepository.save(Now.getUser());
+        if(Now.getUser()!=null){
+            Now.getUser().setLogin(false);//注销状态
+            userRepository.save(Now.getUser());
+        }
         Now.setUser(null);
 
         return "redirect:/";
