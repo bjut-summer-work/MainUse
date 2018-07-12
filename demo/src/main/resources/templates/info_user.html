@@ -26,7 +26,7 @@
 		<br>
 		<h2 style="width: 480px" align="center" th:text="${target.getUsername()}+' 的个人信息'">前端测试 的个人信息</h2>
 		
-		<input type="button" value="编辑 ✏️" style="float: right; height: 40px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px; margin-right: 20px"  th:onclick="|location.href ='/data/user/${target.getId()}/edit'|"/>
+		<input th:if="${nowUsername==target.getUsername()}" type="button" value="编辑 ✏️" style="float: right; height: 40px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px; margin-right: 20px"  th:onclick="|location.href ='/data/user/${target.getId()}/edit'|"/>
 		
 		<br>
 		<br>

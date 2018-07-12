@@ -5,7 +5,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>文章查询</title>
+    <title>文章审批</title>
     <style>
         *{
             margin:0;
@@ -13,7 +13,7 @@
         }
     </style>
 </head>
-<body style="background-color: whitesmoke;">
+<body style="background-color: lightgrey;">
     <div style="background-color: #0d8ddb; height:70px; width:100%; align-items: center">
 		<span style="width:400px ;color: white; line-height: 70px; margin-left: 30px;margin-right: 20%"><font size="+2">能力文档规范系统</font></span>
 		<span style="float: right; line-height: 70px; margin-right:30px" th:text="|欢迎，${nowUserrole} ${nowUsername}|"><font color="white">欢迎，用户xxxxxx</font></span>
@@ -22,45 +22,33 @@
 
     <div  style="width: 100%; height: auto; margin-top: 20px; line-height: 1.5">
         <div style="text-align:center;width: 80%; height: auto; margin: auto; overflow: hidden;">
-            <h2>文章查询</h2>
-            <div style="width: 90%; height: auto; margin: auto; overflow: hidden; margin-top: 20px; text-align: left;">
-				<form class="bs-example bs-example-form" role="form" action="" method="post">
-                    <label style="margin-left: auto;">文章名称：</label>
-                    <input style="width: 100%" type="text" name="title" id="title" placeholder="请填写名称"> 
-                    <span style="width: 80px; text-align: left;">文章类型</span>
-                    	<select class="form-control" style="width: 300px; margin-left:30px" name="type" id="type">
-                        	<option value="0" selected = "selected">全部</option>
-                            <option value="1">提案</option>
-                            <option value="2">规范</option>
-                        </select>
-                  <input type="submit" value="查询" style="height: 30px; margin-left:30px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px;" onclick="location.href ='/search/passage'"/>
-              </form>
-			</div>
+            <h2>文章审批</h2>
 			<br>
             <table style="margin:auto; text-align:center; border: 3px solid black; width: 80%; height: auto;" border="+1" cellspacing="0">
                 <form action="" method="" role="form">
                     <tbody>
 						<tr>
-						    <td  style="width: 5%">#</td>
+						    <td  style="width: 5%">Lv</td>
                             <td  style="width: 50%">标题</td>
                             <td  style="width: 10%">作者</td>
                             <td  style="width: 20%">创建日期</td>
-							<td  style="width: 10%">类型</td>
+							<td  style="width: 5%">类型</td>
 						</tr>
                         <tr th:each="passage:${result}">
 
-                            <td th:text="${passage.getId()}" style="width: 5%">i编号</td>
+                            <td th:text="${passage.getRole()}" style="width: 5%">i审批</td>
                             <td th:text="${passage.getTitle()}" style="width: 50%">i标题</td>
                             <td th:text="${passage.getAuthor()}" style="width: 10%">i作者</td>
                             <td th:text="${passage.getDate()}" style="width: 20%">i创建日期</td>
 							<td th:if="${passage.getType()==1}" style="width: 10%">提案</td>
                             <td th:if="${passage.getType()==2}" style="width: 10%">规范</td>
-							<td><input value="查看" style="text-align: center; height: 25px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 45px; margin: auto" th:onclick="|location.href ='/data/passage/${passage.getId()}'|"></td>
+							<td><input value="审批" style="text-align: center; height: 25px; background-color: darkmagenta; border:1px solid #cccccc; color: white; border-radius: 3px; width: 45px; margin: auto" th:onclick="|location.href ='/user/check/passage/${passage.getId()}'|"></td>
                         </tr>
                     </tbody>
                 </form>
             </table>
         </div>
+        
 
     </div>
 </body>

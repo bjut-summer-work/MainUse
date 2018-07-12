@@ -1,6 +1,7 @@
 package com.summerproj.demo.Controller;
 
 import com.summerproj.demo.Entity.User;
+import com.summerproj.demo.Repository.PassageRepository;
 import com.summerproj.demo.Repository.UserRepository;
 import com.summerproj.demo.Now;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import java.text.*;
 public class SignController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PassageRepository passageRepository;
 
     private String jumpMessage="返回主页";
     private String jumpUrl="/home";
@@ -98,7 +101,8 @@ public class SignController {
      * 用户登陆页面
      */
     @GetMapping(value = "/login")
-    public String userLoginP(){
+    public String userLoginP(Model model){
+        model.addAttribute("result",passageRepository.findAll().subList(0,4));
         return "login";
     }
     @PostMapping(value = "/login")

@@ -22,7 +22,7 @@
 		<input type="button" value="返回个人主页" style="float: right; height: 40px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px; margin-right: 2%; margin-top: 15px" onclick="location.href ='/user/index'"/>
 	</div>
 
-	<div style="width: 600px; margin: auto; margin-top: 20px; line-height: 2; background-color: white; border: 2px solid lightgrey; padding-bottom: 20px">
+	<div style="width: 600px; margin: auto; margin-top: 20px; line-height: 2; background-color: white; border: 2px solid lightgrey; padding-bottom: 20px" th:if="${nowUsername==target.getAuthor()}">
 		<br>
 		<h2 style="width: 480px" align="center" th:text="'标题：'+${target.getTitle()}" th:width="350px">前端测试 的文章信息</h2>
 		<form role="form" th:action="|/data/passage/${target.getId()}/edit|" method="post">
@@ -33,35 +33,24 @@
 
 			<div style="width: 70%; margin:auto;">
 				<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">标题 : </h3>
-				<input type="text" th:value="${target.getTitle()}" name="title" id="title" style="display: inline-block; width: 300px; color: #333;">
+				<input type="text" th:value="${target.getTitle()}" name="title" id="title" style="display: inline-block; width: 300px; color: #333;" >
 			</div>
 			<div style="width: 70%; margin:auto;">
 				<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">作者 : </h3>
-				<input type="text" th:value="${target.getAuthor()}" name="author" id="author" style="display: inline-block; width: 300px; color: #333;">
+				<span th:text="${target.getAuthor()}"  id="author" style="display: inline-block; width: 300px; color: #333;">
 			</div>
-			<!--<div style="width: 70%; margin:auto;">
-				<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">日期 : </h3>
-				<input type="text" th:value="${target.getDate()}" name="date" id="date" style="display: inline-block; width: 300px; color: #333;">
-			</div>
-			<div style="width: 70%; margin:auto;">
-				<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">类型 : </h3>
-				<input type="text" th:value="${target.getType()}" name="type" id="type" style="display: inline-block; width: 300px; color: #333;">
-			</div>-->
 			<div style="width: 70%; margin:auto;">
 				<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">内容 : </h3>
-				<input type="text" th:value="${target.getArticle()}" name="article" id="article" style="display: inline-block; width: 300px; color: #333;">
+				<br>
+				<textarea  th:text="${target.getArticle()}" name="article" id="article" style="display: inline-block; width: 400px;height:350px ; color: #333;"  title="">
+				</textarea>
 			</div>
-			<!--<div style="width: 70%; margin:auto;">
-				<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">权限 : </h3>
-				<span th:if="${target.getRole()<0}" style="display: inline-block; width: 300px; color: #666;">什么鬼</span>
-				<span th:if="${target.getRole()==0}" style="display: inline-block; width: 300px; color: #666;">游客</span>
-				<span th:if="${target.getRole()==1}" style="display: inline-block; width: 300px; color: #666;">会员</span>
-				<span th:if="${target.getRole()==2}" style="display: inline-block; width: 300px; color: #666;">管理员</span>
-			</div>-->
+
 		</form>
 	</div>
 
-	<div style="width: 76%;margin-left: 12%; margin-top: 20px; line-height: 1.5">
+
+	<div style="width: 76%; margin-left: 12%; margin-top: 20px; line-height: 1.5">
 		<h2 align="center" th:if="${target==null}" th:text="此文章不存在"></h2>
 	
 	</div>

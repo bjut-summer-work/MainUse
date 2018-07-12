@@ -3,10 +3,12 @@
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.summerproj.demo.Entity.Passage;
-import java.util.Optional;
+
+import java.util.List;
 
 public interface PassageRepository extends JpaRepository<Passage,Integer>{
-    Optional<Passage> findByTitleContains(String title);
-    Optional<Passage> findByTitleIsNotNull();
-    Optional<Passage> findByAuthor(String Author);
+    List<Passage> findAllByTitleContainingAndRoleIsGreaterThanEqual(String title, Integer lowrole);
+    List<Passage> findAllByTitleContainingAndTypeIsAndRoleIsGreaterThanEqual(String title, Integer type, Integer lowrole);
+    List<Passage> findAllByAuthor(String Author);
+    List<Passage> findAllByRoleLessThanEqualOrderByRole(Integer maxrole);
 }

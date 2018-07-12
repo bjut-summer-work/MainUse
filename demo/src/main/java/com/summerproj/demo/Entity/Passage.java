@@ -19,4 +19,5 @@ public class Passage {
     private String article;
     private Date date;
     private Integer type;
+    private Integer role;
 }

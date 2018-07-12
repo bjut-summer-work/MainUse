@@ -2,19 +2,18 @@ package com.summerproj.demo.Controller;
 
 
 import com.summerproj.demo.Entity.Passage;
+import com.summerproj.demo.Entity.User;
 import com.summerproj.demo.Now;
 import com.summerproj.demo.Repository.PassageRepository;
 import com.summerproj.demo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -43,23 +42,10 @@ public class UserController {
      */
     @GetMapping(value = {"/index"})
     public String userHomeP(Model model){
-        if(Now.getUser()==null)
-            return "redirect:/";
+        Now.prework(model);
 
-        model.addAttribute("nowUsername",Now.getUser().getUsername());
-        model.addAttribute("nowCase",Now.getUser().getRole());
-        model.addAttribute("nowUserid",Now.getUser().getId());
 
-        if(Now.getUser().getRole()>=2) {
-            model.addAttribute("nowUserrole","管理员");
-            return "user_home"; //admin
-        }else if(Now.getUser().getRole()==1) {
-            model.addAttribute("nowUserrole","会员");
-            return "user_home"; //member
-        }else {
-            model.addAttribute("nowUserrole","游客");
-            return "user_home"; //guest
-        }
+        return "user_home";
     }
 
 
@@ -68,8 +54,7 @@ public class UserController {
      */
     @GetMapping(value = "/write")
     public String passageAddP1(Model model){
-        if(Now.getUser()==null)
-            return "redirect:/";
+        Now.prework(model);
 
         model.addAttribute("nowUsername",Now.getUser().getUsername());
         model.addAttribute("nowCase",Now.getUser().getRole());
@@ -89,11 +74,12 @@ public class UserController {
         passage.setDate(new Date());
         passage.setArticle(i_article);
         passage.setType(i_type);
+        passage.setRole(Now.getUser().getRole());
         passageRepository.save(passage);
 
         jumpMessage = "编制成功！将跳转个人主页";
         jumpUrl = "/user/index";
-        return "redirect:/jump";
+        return "redirect:/user/jump";
     }
 
     /**
@@ -101,14 +87,64 @@ public class UserController {
      */
     @GetMapping(value = "/logout")
     public String userLogOut(){
-        if(Now.getUser()==null)
-            return "redirect:/";
-
-        Now.getUser().setLogin(false);//注销状态
-        userRepository.save(Now.getUser());
+        if(Now.getUser()!=null){
+            Now.getUser().setLogin(false);//注销状态
+            userRepository.save(Now.getUser());
+        }
         Now.setUser(null);
 
         return "redirect:/";
     }
 
+    /**
+     * 用户个人主页-审批文档
+     */
+    @GetMapping(value = "/check/passage")
+    public String userCheckPassageP(Model model){
+        Now.prework(model);
+        List<Passage> tar = passageRepository.findAllByRoleLessThanEqualOrderByRole(Now.getUser().getRole()-1);
+        if(tar.size()>=5)
+            tar=tar.subList(0,4);
+        model.addAttribute("result",tar);
+
+        return "check_passage";
+    }
+    @GetMapping(value = "/check/passage/{id}")
+    public String userCheckPassagePT( @PathVariable("id") Integer passId){
+        if (Now.getUser().getRole()<2||Now.getUser()==null)
+            return "redirect:/";
+
+        Passage tar=passageRepository.findById(passId).get();
+        tar.setRole(Now.getUser().getRole());
+        passageRepository.save(tar);
+
+        return "redirect:/user/check/passage";
+    }
+
+    /**
+     * 用户个人主页-审批用户
+     */
+    @GetMapping(value = "/check/user")
+    public String userCheckUserP(Model model){
+        Now.prework(model);
+
+        List<User> tar = userRepository.findAllByRoleLessThanEqualOrderByRole(Now.getUser().getRole()-2);
+        if(tar.size()>=5)
+            tar=tar.subList(0,4);
+        model.addAttribute("result",tar);
+
+        return "check_user";
+    }
+    @GetMapping(value = "/check/user/{id}")
+    public String userCheckUserPT( @PathVariable("id") Integer passId){
+        if (Now.getUser().getRole()<2||Now.getUser()==null)
+            return "redirect:/";
+
+        Passage tar=passageRepository.findById(passId).get();
+        tar.setRole(Now.getUser().getRole()-1);
+        passageRepository.save(tar);
+
+
+        return "redirect:/user/check/user";
+    }
 }

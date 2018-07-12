@@ -13,7 +13,7 @@ public class HelloController {
     public String mainIndex(){
         return "index";
     }
-    @GetMapping(value = {"/user"})
+    @GetMapping(value = {"/user","/data"})
     public String userIndex(){
         return "redirect:/user/index";
     }

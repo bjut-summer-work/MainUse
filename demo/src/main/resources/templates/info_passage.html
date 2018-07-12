@@ -4,56 +4,57 @@
 <!-- 使用 thymeleaf 传递数据给静态页面-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>文章发布</title>
+	<meta charset="UTF-8">
+	<title>文章发布</title>
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-        }
-    </style>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+	</style>
 
 </head>
 <body style="background-color: whitesmoke;">
-	<div style="background-color: #0d8ddb; height:70px; width:100%; align-items: center">
-		<span style="width:400px ;color: white; line-height: 70px; margin-left: 30px;margin-right: 20%"><font size="+2">能力文档规范系统</font></span>
-		<span style="float: right; line-height: 70px; margin-right:30px" th:text="|欢迎，${nowUserrole} ${nowUsername}|"><font color="white">欢迎，用户xxxxxx</font></span>
-		<input type="button" value="返回个人主页" style="float: right; height: 40px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px; margin-right: 2%; margin-top: 15px" onclick="location.href ='/user/index'"/>
+<div style="background-color: #0d8ddb; height:70px; width:100%; align-items: center">
+	<span style="width:400px ;color: white; line-height: 70px; margin-left: 30px;margin-right: 20%"><font size="+2">能力文档规范系统</font></span>
+	<span style="float: right; line-height: 70px; margin-right:30px" th:text="|欢迎，${nowUserrole} ${nowUsername}|"><font color="white">欢迎，用户xxxxxx</font></span>
+	<input type="button" value="返回个人主页" style="float: right; height: 40px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px; margin-right: 2%; margin-top: 15px" onclick="location.href ='/user/index'"/>
+</div>
+<div style="width: 600px; margin: auto; margin-top: 20px; line-height: 2; background-color: white; border: 2px solid lightgrey; padding-bottom: 20px">
+	<br>
+	<h2 align="center" th:text="'标题：'+${target.getTitle()}" th:width="350px">前端测试 的文章信息</h2>
+	<input type="button" th:if="${nowUsername==target.getAuthor()}" value="编辑 ✏️" style="float: right; height: 40px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px; margin-right: 20px"  th:onclick="|location.href ='/data/passage/${target.getId()}/edit'|"/>
+	<br>
+	<br>
+	<div style="width: 70%; margin:auto;">
+		<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">id : </h3>
+		<span th:text="${target.getId()}" style="display: inline-block; width: 300px; color: #666;">载入</span>
 	</div>
-	<div style="width: 600px; margin: auto; margin-top: 20px; line-height: 2; background-color: white; border: 2px solid lightgrey; padding-bottom: 20px">
+	<div style="width: 70%; margin:auto;">
+		<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">作者 : </h3>
+		<span th:text="${target.getAuthor()}" style="display: inline-block; width: 300px; color: #666;">载入</span>
+	</div>
+	<div style="width: 70%; margin:auto;">
+		<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">日期 : </h3>
+		<span th:text="${target.getDate()}" style="display: inline-block; width: 300px; color: #666;">载入</span>
+	</div>
+	<div style="width: 70%; margin:auto;">
+		<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">类型 : </h3>
+		<span th:if="${target.getType()==1}" style="display: inline-block; width: 300px; color: #666;">提案</span>
+		<span th:if="${target.getType()==2}" style="display: inline-block; width: 300px; color: #666;">规范</span>
+	</div>
+	<div style="width: 70%; margin:auto;">
+		<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">内容 : </h3>
 		<br>
-		<h2 align="center" th:text="'标题：'+${target.getTitle()}" th:width="350px">前端测试 的文章信息</h2>
-		<input type="button" value="编辑 ✏️" style="float: right; height: 40px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px; margin-right: 20px"  th:onclick="|location.href ='/data/passage/${target.getId()}/edit'|"/>
-		<br>
-		<br>
-		<div style="width: 70%; margin:auto;">
-			<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">id : </h3>
-			<span th:text="${target.getId()}" style="display: inline-block; width: 300px; color: #666;">载入</span>
-		</div>
-		<div style="width: 70%; margin:auto;">
-			<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">作者 : </h3>
-			<span th:text="${target.getAuthor()}" style="display: inline-block; width: 300px; color: #666;">载入</span>
-		</div>
-		<div style="width: 70%; margin:auto;">
-			<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">日期 : </h3>
-			<span th:text="${target.getDate()}" style="display: inline-block; width: 300px; color: #666;">载入</span>
-		</div>
-		<div style="width: 70%; margin:auto;">
-			<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">类型 : </h3>
-			<span th:text="${target.getType()}" style="display: inline-block; width: 300px; color: #666;">载入</span>
-		</div>
-		<div style="width: 70%; margin:auto;">
-			<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">内容 : </h3>
-			<br>
-			<span th:text="${target.getArticle()}" style="display: inline-block; width: auto; color: #666;">载入</span>
-		</div>
+		<span th:text="${target.getArticle()}" style="display: inline-block; width: auto; color: #666;">载入</span>
+	</div>
 
-		
+
 	`</div>
-	</div>
-	<div style="width: 76%;margin-left: 12%; margin-top: 20px; line-height: 1.5">
-		<h2 align="center" th:if="${target==null}" th:text="此文章不存在"></h2>
-	
-	</div>
+</div>
+<div style="width: 76%;margin-left: 12%; margin-top: 20px; line-height: 1.5">
+	<h2 align="center" th:if="${target==null}" th:text="此文章不存在"></h2>
+
+</div>
 </body>

@@ -22,7 +22,7 @@
 		<input type="button" value="返回个人主页" style="float: right; height: 40px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px; margin-right: 2%; margin-top: 15px" onclick="location.href ='/user/index'"/>
 	</div>
 
-	<div style="width: 600px; margin: auto; margin-top: 20px; line-height: 2; background-color: white; border: 2px solid lightgrey; padding-bottom: 20px">
+	<div th:if="${nowUsername==target.getUsername()}" style="width: 600px; margin: auto; margin-top: 20px; line-height: 2; background-color: white; border: 2px solid lightgrey; padding-bottom: 20px">
 		<br>
 		<h2 style="width: 480px" align="center" th:text="${target.getUsername()}+' 的个人信息'">前端测试 的个人信息</h2>
 		<form role="form" th:action="|/data/user/${target.getId()}/edit|" method="post">
@@ -71,8 +71,8 @@
 				<span th:if="${target.getRole()==2}" style="display: inline-block; width: 300px; color: #666;">管理员</span>
 			</div>
 
-		</form>
-	</div>
+		</div>
+	</form>
 
 	<div style="width: 76%;margin-left: 12%; margin-top: 20px; line-height: 1.5">
 		<h2 align="center" th:if="${target==null}" th:text="此用户不存在"></h2>
