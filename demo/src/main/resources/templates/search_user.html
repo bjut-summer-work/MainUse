@@ -39,62 +39,35 @@
             <table style="margin:auto; text-align:center; border: 3px solid black; width: 100%; height: auto;" border="+1" cellspacing="0">
                 <form action="" method="" role="form">
                     <tbody>
-                        <tr style="height: 50px;">
-                            <td>选择</td>
-                            <td>编号</td>
-                            <td>提案名称</td>
-                            <td>作者</td>
-                            <td>截止日期</td>
-                            <td>状态</td>
-                            <td>附议数</td>
-                            <td>反对数</td>
+                        <tr>
+                            <td style="width:10%">姓名</td>
+                            <td style="width:10%">用户名</td>
+                            <td style="width:10%">性别</td>
+                            <td style="width:20%">联系方式</td>
+                            <td style="width:20%">地址</td>
+                            <td style="width:10%">生日</td>
+                            <td style="width:10%">推荐人</td>
+                            <td style="width:10%">所属</td>
                         </tr>
-                        <tr style="height: 50px;">
-                            <td><input name="" type="checkbox" value="" /></td>
-                            <td>jfl</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>啦啦啦啦</td>
-                            <td>啦啦啦啦</td>
+                       	 <tr th:each="user:${result}">
+                            <td th:text="${user.getName()}" style="width: auto">i姓名</td>
+                            <td th:text="${user.getUsername()}" style="width:auto">i用户名</td>
+                            <td th:text="${user.getGender()}" style="width: auto">i性别</td>
+                            <td th:text="${user.getTel()}" style="width: auto">i联系方式</td>
+							<td th:text="${user.getAddress()}" style="width: auto">i地址</td>
+                            <td th:text="${user.getBirthday()}" style="width: auto">i生日</td>
+                            <td th:text="${user.getFriend()}" style="width: auto">i推荐人</td>
+                            <td th:text="${user.getCompany()}" style="width: auto">i所属</td>
+							<td><input type="submit" value="同意" style="text-align: center; height: 25px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: auto; margin: auto"></td>
+                            <td><input type="submit" value="拒绝" style="text-align: center; height: 25px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: auto; margin: auto"></td>
                         </tr>
-                        <tr style="height: 50px;">
-                            <td><input name="" type="checkbox" value="" /></td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>啦啦啦啦</td>
-                            <td>啦啦啦啦</td>
-                        </tr>
-                        <tr style="height: 50px;">
-                            <td><input name="" type="checkbox" value="" /></td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>啦啦啦啦</td>
-                            <td>啦啦啦啦</td>
-                        </tr>
-                        <tr style="height: 50px;" >
-                            <td><input name="" type="checkbox" value="" /></td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>rew</td>
-                            <td>啦啦啦啦</td>
-                            <td>啦啦啦啦</td>
-                        </tr>
+                          
                     </tbody>
                 </form>
             </table>
         </div>
 
-       <div style="width: 240px; height: 100px; overflow: hidden; float: right; margin-right:10%;">
+     	<!--<div style="width: 240px; height: 100px; overflow: hidden; float: right; margin-right:10%;">
             <form action="" method="" role="" >
                 <div style="display: inline-block;width: auto; line-height: 100px;">
                     <input type="reset" value="上一页" style="height: 40px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px;"/>
@@ -103,6 +76,7 @@
                     <input type="button" value="下一页" style="height: 40px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px;" onclick="location.href = 'register.html'"/>
                 </div>
             </form>
-        </div>
+        </div> -->
+        
     </div>
 </body>

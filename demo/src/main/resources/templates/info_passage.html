@@ -24,6 +24,8 @@
 	<div style="width: 600px; margin: auto; margin-top: 20px; line-height: 2; background-color: white; border: 2px solid lightgrey; padding-bottom: 20px">
 		<br>
 		<h2 align="center" th:text="'标题：'+${target.getTitle()}" th:width="350px">前端测试 的文章信息</h2>
+		<input type="button" value="编辑 ✏️" style="float: right; height: 40px; background-color: #0d8ddb; border:1px solid #cccccc; color: white; border-radius: 3px; width: 100px; margin-right: 20px"  th:onclick="|location.href ='/data/passage/${target.getId()}/edit'|"/>
+		<br>
 		<br>
 		<div style="width: 70%; margin:auto;">
 			<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">id : </h3>

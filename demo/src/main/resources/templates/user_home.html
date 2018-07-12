@@ -53,33 +53,27 @@
             <div style="display: inline-block; width:20px; height:20px;background-color: palevioletred; border-radius: 50%;"></div><span style="line-height: 120px;"><font size="+2"><b> 写文档</b></font></span>
         </div>
 		
-		<!-- 会员+权限 搜索用户-->
+		<!-- 会员+权限 发起邀请-->
         <div th:if="${nowCase>=1}" onclick="location.href='/data/search/user'" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #ffffff; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
             <div style="display: inline-block; width:20px; height:20px;background-color: lightseagreen; border-radius: 50%;"></div><span style="line-height: 120px;"><font size="+2"><b> 搜用户</b></font></span>
         </div>
 		
-		<!-- 无权限 搜索文档-->
+		<!-- 会员+权限 搜索文档-->
         <div onclick="location.href='/data/search/passage'" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #ffffff; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
             <div style="display: inline-block; width:20px; height:20px;background-color: mediumseagreen; border-radius: 50%;"></div><span style="line-height: 120px;"><font size="+2"><b> 搜文档</b></font></span>
         </div>
-
 		
 		
 		<br>
 		<div style="display: inline-block; width:100%; height:2px; margin-top:20px; background-color:lightgrey; border-radius: 40%;"></div>
 		<!-- 游客+权限 管理个人信息-->
-        <div th:if="${nowCase>=0}" th:onclick="|location.href='/data/user/${nowUserid}'|" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #dfffdf; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
+        <div th:onclick="|location.href='/data/user/${nowUserid}'|" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #dfffdf; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
             <div style="display: inline-block; width:20px; height:20px; background-color:slateblue; border-radius: 50%;"></div><span style="line-height: 120px;"><font size="+2"><b> 个人信息</b></font></span>
         </div>
 		
 		<!-- 游客+权限 注销账号-->
-        <div th:if="${nowCase>=0}" onclick="location.href='/user/logout'" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #dfffdf; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
+        <div onclick="location.href='/user/logout'" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #dfffdf; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
             <div style="display: inline-block; width:20px; height:20px; background-color: coral; border-radius: 50%;"></div><span style="line-height: 120px;"><font size="+2"><b> 注销账号</b></font></span>
-        </div>
-
-        <!-- 匿名-权限 回到首页-->
-        <div th:if="${nowCase<0}" onclick="location.href='/'" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #dfffdf; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
-            <div style="display: inline-block; width:20px; height:20px; background-color: coral; border-radius: 50%;"></div><span style="line-height: 120px;"><font size="+2"><b> 回到首页</b></font></span>
         </div>
 
         </div>	
