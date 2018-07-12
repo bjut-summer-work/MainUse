@@ -11,12 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors.*;
 import java.util.Optional;
 
 @Controller
@@ -26,28 +20,14 @@ public class DataController {
     private UserRepository userRepository;
     @Autowired
     private PassageRepository passageRepository;
-
-    private void preWork(Model model) {
-        model.addAttribute("nowUsername", Now.getUser().getUsername());
-        model.addAttribute("nowCase", Now.getUser().getRole());
-
-        if (Now.getUser().getRole() >= 2)
-            model.addAttribute("nowUserrole", "管理员");
-        else if (Now.getUser().getRole() == 1)
-            model.addAttribute("nowUserrole", "会员");
-        else
-            model.addAttribute("nowUserrole", "游客");
-    }
+    
 
     /**
      * 搜用户
      */
     @GetMapping(value = "/search/user")
     public String searchUserP(Model model){
-        if (Now.getUser() == null)
-            return "redirect:/";
-        preWork(model);
-
+        Now.prework(model);
 
         return "search_user";
     }
@@ -61,9 +41,7 @@ public class DataController {
      */
     @GetMapping(value = "/search/passage")
     public String searchPassageP( Model model){
-        if (Now.getUser() == null)
-            return "redirect:/";
-        preWork(model);
+        Now.prework(model);
 
         model.addAttribute("result",passageRepository.findAll());
 
@@ -71,9 +49,7 @@ public class DataController {
     }
     @GetMapping(value = "/search/passage/title/{na}")
     public String searchPassagePT(@PathVariable("na") String i_title, Model model){
-        if (Now.getUser() == null)
-            return "redirect:/";
-        preWork(model);
+        Now.prework(model);
 
         Optional<Passage> passageFind;
         passageFind = passageRepository.findByTitleContains(i_title);
@@ -92,9 +68,7 @@ public class DataController {
      */
     @GetMapping(value = "/user/{id}")
     public String infoUserP(Model model, @PathVariable("id") Integer userId){
-        if(Now.getUser()==null)
-            return "redirect:/";
-        preWork(model);
+        Now.prework(model);
 
         Optional<User> tempList = userRepository.findById(userId);
         User targetUser;
@@ -111,9 +85,7 @@ public class DataController {
      */
     @GetMapping(value = "/user/{id}/edit")
     public String editUserP(Model model, @PathVariable("id") Integer userId){
-        if(Now.getUser()==null)
-            return "redirect:/";
-        preWork(model);
+        Now.prework(model);
 
         Optional<User> tempList = userRepository.findById(userId);
         User targetUser;
@@ -170,9 +142,7 @@ public class DataController {
      */
     @GetMapping(value = "/passage/{id}")
     public String infoPassageP(Model model, @PathVariable("id") Integer passageId){
-        if(Now.getUser()==null)
-            return "redirect:/";
-        preWork(model);
+        Now.prework(model);
 
         Optional<Passage> tempList = passageRepository.findById(passageId);
         Passage targetPassage;
