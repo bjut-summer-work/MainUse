@@ -26,6 +26,7 @@ public class Now{
             Now.setUser(temp);
         }
         model.addAttribute("nowUsername", Now.getUser().getUsername());
+        model.addAttribute("nowName", Now.getUser().getName());
         model.addAttribute("nowCase", Now.getUser().getRole());
         model.addAttribute("nowUserid", Now.getUser().getId());
 

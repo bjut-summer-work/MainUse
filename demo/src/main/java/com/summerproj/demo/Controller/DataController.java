@@ -1,9 +1,11 @@
 package com.summerproj.demo.Controller;
 
 import com.summerproj.demo.Entity.Passage;
+import com.summerproj.demo.Entity.Recommend;
 import com.summerproj.demo.Entity.User;
 import com.summerproj.demo.Now;
 import com.summerproj.demo.Repository.PassageRepository;
+import com.summerproj.demo.Repository.RecommendRepository;
 import com.summerproj.demo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.*;
 
-import static java.util.stream.Collectors.*;
 
 @Controller
 @RequestMapping(value="/data")
@@ -22,6 +23,8 @@ public class DataController {
     private UserRepository userRepository;
     @Autowired
     private PassageRepository passageRepository;
+    @Autowired
+    private RecommendRepository recommendRepository;
     
 
     /**
@@ -62,13 +65,16 @@ public class DataController {
     @GetMapping(value = "/search/passage")
     public String searchPassageP( Model model){
         Now.prework(model);
-        model.addAttribute("result",passageRepository.findAll());
+        model.addAttribute("result",passageRepository.findAllByRoleGreaterThanEqualOrderByRoleDesc(2));
 
         return "search_passage";
     }
     @GetMapping(value = "/search/passage/title/{na}/{ty}")
     public String searchPassagePT(@PathVariable("na") String i_title, @PathVariable("ty") Integer i_type, Model model){
         Now.prework(model);
+
+        if(i_title.isEmpty())
+            return "redirect:/search/passage";
 
         List<Passage> passageFind;
         if(i_type==0)
@@ -159,6 +165,14 @@ public class DataController {
         user.setTel(i_tel);
         user.setFriend(i_friend);
         user.setCompany(i_company);
+
+
+        Optional<Recommend> res = recommendRepository.findByStartAndEndAndEndtel(i_friend,i_name,i_tel);
+        if (res.isPresent()){
+            user.setConfirm(true);
+        }else{
+            user.setConfirm(false);
+        }
 
         userRepository.save(user);
 

@@ -1,7 +1,9 @@
 package com.summerproj.demo.Controller;
 
+import com.summerproj.demo.Entity.Recommend;
 import com.summerproj.demo.Entity.User;
 import com.summerproj.demo.Repository.PassageRepository;
+import com.summerproj.demo.Repository.RecommendRepository;
 import com.summerproj.demo.Repository.UserRepository;
 import com.summerproj.demo.Now;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class SignController {
     private UserRepository userRepository;
     @Autowired
     private PassageRepository passageRepository;
+    @Autowired
+    private RecommendRepository recommendRepository;
 
     private String jumpMessage="返回主页";
     private String jumpUrl="/home";
@@ -89,6 +93,13 @@ public class SignController {
         user.setCompany(i_company);
         user.setLogin(false);   //默认未登陆
         user.setRole(0);        //默认游客权限
+
+        Optional<Recommend> res = recommendRepository.findByStartAndEndAndEndtel(i_friend,i_name,i_tel);
+        if (res.isPresent()){
+            user.setConfirm(true);
+        }else{
+            user.setConfirm(false);
+        }
         userRepository.save(user);
 
         jumpMessage = "注册成功！将跳转登陆界面";

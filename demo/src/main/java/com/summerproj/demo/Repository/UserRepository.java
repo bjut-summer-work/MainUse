@@ -11,6 +11,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     List<User> findAllByNameContaining(String name);
     Optional<User> findByUsername(String username);
     List<User> findAllByUsernameContaining(String username);
-    List<User> findAllByRoleLessThanEqualOrderByRole(Integer maxrole);
+    List<User> findAllByRoleIs(Integer maxrole);
 
 }

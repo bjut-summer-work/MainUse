@@ -1,11 +1,9 @@
 package com.summerproj.demo.Controller;
 
 
-import com.summerproj.demo.Entity.Passage;
-import com.summerproj.demo.Entity.User;
+import com.summerproj.demo.Entity.*;
 import com.summerproj.demo.Now;
-import com.summerproj.demo.Repository.PassageRepository;
-import com.summerproj.demo.Repository.UserRepository;
+import com.summerproj.demo.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +20,8 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private PassageRepository passageRepository;
+    @Autowired
+    private RecommendRepository recommendRepository;
 
     private String jumpMessage="返回主页";
     private String jumpUrl="/home";
@@ -97,6 +97,34 @@ public class UserController {
     }
 
     /**
+     * 用户个人主页-推荐
+     */
+    @GetMapping(value = "/recommend")
+    public String userRecP(Model model){
+        Now.prework(model);
+
+        return "refer";
+    }
+    @PostMapping(value = "/recommend")
+    public String userRec(@RequestParam("tel") String i_tel,
+                          @RequestParam("name") String i_name,
+                          @RequestParam("reason") String i_reason){
+        Recommend recommend = new Recommend();
+        if (i_name==null || i_tel==null)
+            return "redirect:/user/recommend";
+        recommend.setEnd(i_name);
+        recommend.setStart(Now.getUser().getName());
+        recommend.setEndtel(i_tel);
+        recommend.setReason(i_reason);
+
+        recommendRepository.save(recommend);
+
+        jumpUrl="/user/index";
+        jumpMessage="推荐成功！返回个人主页。";
+        return "redirect:/user/jump";
+    }
+
+    /**
      * 用户个人主页-审批文档
      */
     @GetMapping(value = "/check/passage")
@@ -128,7 +156,7 @@ public class UserController {
     public String userCheckUserP(Model model){
         Now.prework(model);
 
-        List<User> tar = userRepository.findAllByRoleLessThanEqualOrderByRole(Now.getUser().getRole()-2);
+        List<User> tar = userRepository.findAllByRoleIs(Now.getUser().getRole()-2);
         if(tar.size()>=5)
             tar=tar.subList(0,4);
         model.addAttribute("result",tar);
@@ -140,9 +168,9 @@ public class UserController {
         if (Now.getUser().getRole()<2||Now.getUser()==null)
             return "redirect:/";
 
-        Passage tar=passageRepository.findById(passId).get();
+        User tar=userRepository.findById(passId).get();
         tar.setRole(Now.getUser().getRole()-1);
-        passageRepository.save(tar);
+        userRepository.save(tar);
 
 
         return "redirect:/user/check/user";

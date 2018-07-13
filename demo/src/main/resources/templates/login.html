@@ -51,26 +51,28 @@
 
 
     <div style="padding: 30px;">
-        <table style="margin:auto; text-align:center; border: 3px solid black; width: 80%; height: auto;" border="+1" cellspacing="0">
-            <form action="" method="" role="form">
-                <tbody>
+        <table style="margin:auto; text-align:center; border-radius: 5px; border: 2px solid gray; width: 80%; height: auto;" border="+1" cellspacing="0">
+            <h2 style="width: 80%">新闻</h2>
+            <tbody>
                 <tr>
-                    <td  style="width: 5%">#</td>
+                    <td  style="width: 10%">状态</td>
                     <td  style="width: 50%">标题</td>
                     <td  style="width: 10%">作者</td>
-                    <td  style="width: 20%">创建日期</td>
+                    <td  style="width: 10%">创建日期</td>
                     <td  style="width: 10%">类型</td>
                 </tr>
                 <tr th:each="passage:${result}">
-                    <td th:text="${passage.getId()}" style="width: 5%">i编号</td>
+                    <td th:if="${passage.getRole()<=1}" style="width: 10%"><font style="color: gray">未通过</font></td>
+                    <td th:if="${passage.getRole()==2}" style="width: 10%"><font style="color: limegreen">通过Lv1</font></td>
+                    <td th:if="${passage.getRole()==3}" style="width: 10%"><font style="color: limegreen">推荐Lv2</font></td>
+                    <td th:if="${passage.getRole()==4}" style="width: 10%"><font style="color: limegreen">精品Lv3</font></td>
                     <td th:text="${passage.getTitle()}" style="width: 50%">i标题</td>
                     <td th:text="${passage.getAuthor()}" style="width: 10%">i作者</td>
-                    <td th:text="${passage.getDate()}" style="width: 20%">i创建日期</td>
+                    <td th:text="|${passage.getDate().getMonth()}-${passage.getDate().getDay()} ${passage.getDate().getHours()}:${passage.getDate().getMinutes()}|" style="width: 20%">i创建日期</td>
                     <td th:if="${passage.getType()==1}" style="width: 10%">提案</td>
                     <td th:if="${passage.getType()==2}" style="width: 10%">规范</td>
                    </tr>
-                </tbody>
-            </form>
+            </tbody>
         </table>
     </div>
 </div>

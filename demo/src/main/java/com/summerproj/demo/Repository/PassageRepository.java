@@ -11,4 +11,7 @@ public interface PassageRepository extends JpaRepository<Passage,Integer>{
     List<Passage> findAllByTitleContainingAndTypeIsAndRoleIsGreaterThanEqual(String title, Integer type, Integer lowrole);
     List<Passage> findAllByAuthor(String Author);
     List<Passage> findAllByRoleLessThanEqualOrderByRole(Integer maxrole);
+    List<Passage> findAllByRoleGreaterThanEqual(Integer maxrole);
+    List<Passage> findAllByRoleGreaterThanEqualOrderByRoleDesc(Integer maxrole);
+
 }

@@ -28,6 +28,7 @@ public class User {
 
     private Integer role;
     private Boolean Login;
+    private Boolean confirm;
 
     public User(){
     }

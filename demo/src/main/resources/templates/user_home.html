@@ -52,16 +52,23 @@
         <div th:if="${nowCase>=1}" onclick="location.href='/user/write'" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #ffffff; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
             <div style="display: inline-block; width:20px; height:20px;background-color: palevioletred; border-radius: 50%;"></div><span style="line-height: 120px;"><font size="+2"><b> 写文档</b></font></span>
         </div>
-		
+
+        <!-- 无权限 搜索文档-->
+        <div onclick="location.href='/data/search/passage'" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #ffffff; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
+            <div style="display: inline-block; width:20px; height:20px;background-color: mediumseagreen; border-radius: 50%;"></div><span style="line-height: 120px;"><font size="+2"><b> 搜文档</b></font></span>
+        </div>
+
 		<!-- 会员+权限 搜索用户-->
         <div th:if="${nowCase>=1}" onclick="location.href='/data/search/user'" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #ffffff; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
             <div style="display: inline-block; width:20px; height:20px;background-color: lightseagreen; border-radius: 50%;"></div><span style="line-height: 120px;"><font size="+2"><b> 搜用户</b></font></span>
         </div>
-		
-		<!-- 无权限 搜索文档-->
-        <div onclick="location.href='/data/search/passage'" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #ffffff; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
-            <div style="display: inline-block; width:20px; height:20px;background-color: mediumseagreen; border-radius: 50%;"></div><span style="line-height: 120px;"><font size="+2"><b> 搜文档</b></font></span>
+
+        <!-- 会员+权限 推荐用户-->
+        <div th:if="${nowCase>=1}" onclick="location.href='/user/recommend'" class="in" style="width: 150px; margin-top: 2%; margin-right: 30px; background-color: #ffffff; display: inline-block; text-align: center; border: 1px solid #0d8ddb; border-radius: 3%;">
+            <div style="display: inline-block; width:20px; height:20px;background-color: limegreen; border-radius: 50%;"></div><span style="line-height: 120px;"><font size="+2"><b> 推荐用户</b></font></span>
         </div>
+
+
 
 		
 		

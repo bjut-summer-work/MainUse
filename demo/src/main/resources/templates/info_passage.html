@@ -45,6 +45,13 @@
 		<span th:if="${target.getType()==2}" style="display: inline-block; width: 300px; color: #666;">规范</span>
 	</div>
 	<div style="width: 70%; margin:auto;">
+		<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">审核 : </h3>
+		<span th:if="${target.getRole()<=1}" style="display: inline-block; width: 300px; color: #666;">未通过</span>
+		<span th:if="${target.getType()==2}" style="display: inline-block; width: 300px; color: #666;">通过Lv1</span>
+		<span th:if="${target.getType()==3}" style="display: inline-block; width: 300px; color: #666;">推荐Lv2</span>
+		<span th:if="${target.getType()==4}" style="display: inline-block; width: 300px; color: #666;">精品Lv3</span>
+	</div>
+	<div style="width: 70%; margin:auto;">
 		<h3 style="display: inline-block; width: 100px; text-align: right; color: #555;">内容 : </h3>
 		<br>
 		<span th:text="${target.getArticle()}" style="display: inline-block; width: auto; color: #666;">载入</span>
